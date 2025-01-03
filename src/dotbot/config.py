@@ -2,8 +2,9 @@ import json
 import os.path
 from typing import Any
 
-import yaml
-
+#import yaml
+from ruamel.yaml import YAML
+yaml = YAML()
 from dotbot.util import string
 
 
@@ -15,7 +16,7 @@ class ConfigReader:
         try:
             _, ext = os.path.splitext(config_file_path)
             with open(config_file_path) as fin:
-                return json.load(fin) if ext == ".json" else yaml.safe_load(fin)
+                return json.load(fin) if ext == ".json" else yaml.load(fin)
         except Exception as e:
             msg = string.indent_lines(str(e))
             msg = f"Could not read config file:\n{msg}"
